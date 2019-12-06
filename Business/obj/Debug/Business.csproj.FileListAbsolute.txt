@@ -1,0 +1,6 @@
+C:\Users\Toha\Desktop\Саня\MyWebApp\Business\bin\Debug\Business.dll
+C:\Users\Toha\Desktop\Саня\MyWebApp\Business\bin\Debug\Business.pdb
+C:\Users\Toha\Desktop\Саня\MyWebApp\Business\obj\Debug\Business.csprojAssemblyReference.cache
+C:\Users\Toha\Desktop\Саня\MyWebApp\Business\obj\Debug\Business.csproj.CoreCompileInputs.cache
+C:\Users\Toha\Desktop\Саня\MyWebApp\Business\obj\Debug\Business.dll
+C:\Users\Toha\Desktop\Саня\MyWebApp\Business\obj\Debug\Business.pdb
