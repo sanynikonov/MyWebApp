@@ -36,15 +36,17 @@ namespace MyWebApp.Controllers
         }
 
         [HttpGet]
+        [Route("api/orders/{id}/products")]
         public IHttpActionResult GetAllProductsByOrderId(int id)
         {
             return Ok(orderService.Get(id).Products);
         }
 
         [HttpPut]
-        public void AddProductToOrderList(int orderId, [FromBody]ProductDTO product)
+        [Route("api/orders/{id}/products")]
+        public void AddProductToOrderList(int id, [FromBody]ProductDTO product)
         {
-            orderService.Get(orderId).Products.Add(product);
+            orderService.AddProductToOrder(id, product);
         }
     }
 }

@@ -1,56 +1,59 @@
-﻿using System;
+﻿using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Business
 {
     public class OrderService : IOrderService
     {
-        private List<OrderDTO> orders;
+        private IUnitOfWork unit;
+        private IMapper mapper;
+
+        public OrderService(IUnitOfWork unit, IMapper mapper)
+        {
+            this.unit = unit;
+            this.mapper = mapper;
+        }
 
         public void Add(OrderDTO order)
         {
-            orders.Add(order);
+            var orderEntity = mapper.Map<Order>(order);
+            orderEntity.Products = order.Products.Select(product => mapper.Map<Product>(product)).ToList();
+            unit.OrderRepository.Add(orderEntity);
+            unit.Save();
+        }
+
+        public void AddProductToOrder(int orderId, ProductDTO product)
+        {
+            var order = unit.OrderRepository.Get(orderId);
+            var productEntity = mapper.Map<Product>(product);
+            order.Products.Add(productEntity);
+            unit.OrderRepository.Update(order);
+            unit.Save();
         }
 
         public OrderDTO Get(int id)
         {
-            return orders.Where(x => x.Id == id).FirstOrDefault();
+            var order = unit.OrderRepository.Get(id);
+            var orderDTO = mapper.Map<OrderDTO>(order);
+            orderDTO.Products = order.Products.Select(product => mapper.Map<ProductDTO>(product)).ToList();
+            return orderDTO;
         }
 
         public IEnumerable<OrderDTO> GetAll()
         {
-            return orders;
-        }
-
-        public OrderService()
-        {
-            var productService = new ProductService();
-            orders = new List<OrderDTO>
+            var orders = unit.OrderRepository.GetAll();
+            var ordersDTO = orders.Select(order => 
             {
-                new OrderDTO
-                {
-                    Id = 0,
-                    Products = new List<ProductDTO>()
-                    {
-                        productService.Get(0),
-                        productService.Get(2),
-                    }
-                },
-                new OrderDTO
-                {
-                    Id = 1,
-                    Products = new List<ProductDTO>()
-                    {
-                        productService.Get(0),
-                        productService.Get(1),
-                        productService.Get(2),
-                        productService.Get(3),
-                    }
-                },
-            };
+                var orderDTO = mapper.Map<OrderDTO>(order);
+                orderDTO.Products = order.Products.Select(product => mapper.Map<ProductDTO>(product)).ToList();
+                return orderDTO;
+            });
+            return ordersDTO;
         }
     }
 }

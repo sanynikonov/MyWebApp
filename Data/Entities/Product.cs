@@ -10,8 +10,15 @@ namespace Data
     public class Product
     {
         [Key]
-        public virtual int Id { get; set; }
-        public virtual string Name { get; set; }
-        public virtual decimal Price { get; set; }
+        public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public virtual List<Order> Orders { get; set; }
+
+        public Product()
+        {
+            Orders = new List<Order>();
+        }
     }
 }

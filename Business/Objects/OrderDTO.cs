@@ -9,6 +9,6 @@ namespace Business
     public class OrderDTO
     {
         public int Id { get; set; }
-        public List<ProductDTO> Products { get; internal set; } = new List<ProductDTO>();
+        public List<ProductDTO> Products { get; set; } = new List<ProductDTO>();
     }
 }

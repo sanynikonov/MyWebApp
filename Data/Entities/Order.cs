@@ -10,8 +10,13 @@ namespace Data
     public class Order
     {
         [Key]
-        public virtual int Id { get; set; }
+        public int Id { get; set; }
 
         public virtual List<Product> Products { get; set; }
+
+        public Order()
+        {
+            Products = new List<Product>();
+        }
     }
 }

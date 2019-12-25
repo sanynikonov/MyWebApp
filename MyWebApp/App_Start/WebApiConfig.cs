@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Integration.WebApi;
 using System.Reflection;
 using Business;
+using AutoMapper;
 
 namespace MyWebApp
 {
@@ -21,8 +22,8 @@ namespace MyWebApp
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}/{action}",
-                defaults: new { id = RouteParameter.Optional, action = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
         }
 
@@ -32,11 +33,20 @@ namespace MyWebApp
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MapperBusinessProfile>();
+            });
+            builder.Register(x => new Mapper(mapperConfig)).As<IMapper>();
+            builder.RegisterModule<UnitAutofacConfig>();
+
             builder.RegisterType<ProductService>().AsImplementedInterfaces();
             builder.RegisterType<OrderService>().AsImplementedInterfaces();
 
-            var container = builder.Build();
+            
 
+            var container = builder.Build();
+            
             AutofacWebApiDependencyResolver autofacWebApiDependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             return autofacWebApiDependencyResolver;

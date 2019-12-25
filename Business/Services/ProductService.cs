@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AutoMapper;
+using Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,52 +10,26 @@ namespace Business
 {
     public class ProductService : IProductService
     {
-        private List<ProductDTO> products;
+        private IUnitOfWork unit;
+        protected readonly IMapper mapper;
+
+        public ProductService(IUnitOfWork unit, IMapper mapper)
+        {
+            this.unit = unit;
+            this.mapper = mapper;
+        }
 
         public void Add(ProductDTO product)
         {
-            products.Add(product);
+            var prod = mapper.Map<Product>(product);
+            unit.ProductRepository.Add(prod);
+            unit.Save();
         }
 
         public IEnumerable<ProductDTO> GetAll()
         {
-            return products;
-        }
-
-        public ProductDTO Get(int id)
-        {
-            return products.Where(x => x.Id == id).FirstOrDefault();
-        }
-
-        public ProductService()
-        {
-            products = new List<ProductDTO>
-            {
-                new ProductDTO
-                {
-                    Id = 0,
-                    Name = "One man",
-                    Price = 1000M,
-                },
-                new ProductDTO
-                {
-                    Id = 1,
-                    Name = "One soul",
-                    Price = 1100M,
-                },
-                new ProductDTO
-                {
-                    Id = 2,
-                    Name = "One heart",
-                    Price = 900M,
-                },
-                new ProductDTO
-                {
-                    Id = 3,
-                    Name = "One mission",
-                    Price = 1300M,
-                },
-            };
+            var products = unit.ProductRepository.GetAll();
+            return products.Select(product => mapper.Map<ProductDTO>(product));
         }
     }
 }

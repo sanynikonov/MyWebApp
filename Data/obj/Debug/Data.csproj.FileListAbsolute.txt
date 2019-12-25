@@ -1,0 +1,12 @@
+E:\Programming\C#\MyWebApp\Data\obj\Debug\Data.csprojAssemblyReference.cache
+E:\Programming\C#\MyWebApp\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+E:\Programming\C#\MyWebApp\Data\bin\Debug\Data.dll.config
+E:\Programming\C#\MyWebApp\Data\bin\Debug\Data.dll
+E:\Programming\C#\MyWebApp\Data\bin\Debug\Data.pdb
+E:\Programming\C#\MyWebApp\Data\bin\Debug\EntityFramework.dll
+E:\Programming\C#\MyWebApp\Data\bin\Debug\EntityFramework.SqlServer.dll
+E:\Programming\C#\MyWebApp\Data\bin\Debug\EntityFramework.xml
+E:\Programming\C#\MyWebApp\Data\bin\Debug\EntityFramework.SqlServer.xml
+E:\Programming\C#\MyWebApp\Data\obj\Debug\Data.csproj.CopyComplete
+E:\Programming\C#\MyWebApp\Data\obj\Debug\Data.dll
+E:\Programming\C#\MyWebApp\Data\obj\Debug\Data.pdb

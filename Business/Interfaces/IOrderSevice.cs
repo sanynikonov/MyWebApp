@@ -13,5 +13,7 @@ namespace Business
         IEnumerable<OrderDTO> GetAll();
 
         OrderDTO Get(int id);
+
+        void AddProductToOrder(int orderId, ProductDTO product);
     }
 }
