@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Business;
 
@@ -18,35 +19,39 @@ namespace MyWebApp.Controllers
         }
 
         [HttpPost]
-        public void PostOrder([FromBody] OrderDTO order)
+        public async Task PostOrder([FromBody] OrderDTO order)
         {
-            orderService.Add(order);
+            await orderService.Add(order);
         }
 
         [HttpGet]
-        public IHttpActionResult GetAllOrders()
+        public async Task<IHttpActionResult> GetAllOrders()
         {
-            return Ok(orderService.GetAll());
+            var orders = await orderService.GetAll();
+            return Ok(orders);
         }
 
         [HttpGet]
-        public IHttpActionResult GetOrder(int id)
+        public async Task<IHttpActionResult> GetOrder(int id)
         {
-            return Ok(orderService.Get(id));
+            var order = await orderService.Get(id);
+            return Ok(order);
         }
 
         [HttpGet]
         [Route("api/orders/{id}/products")]
-        public IHttpActionResult GetAllProductsByOrderId(int id)
+        public async Task<IHttpActionResult> GetAllProductsByOrderId(int id)
         {
-            return Ok(orderService.Get(id).Products);
+            var order = await orderService.Get(id);
+            var products = order.Products;
+            return Ok(products);
         }
 
         [HttpPut]
         [Route("api/orders/{id}/products")]
-        public void AddProductToOrderList(int id, [FromBody]ProductDTO product)
+        public async Task AddProductToOrderList(int id, [FromBody]ProductDTO product)
         {
-            orderService.AddProductToOrder(id, product);
+            await orderService.AddProductToOrder(id, product);
         }
     }
 }

@@ -18,31 +18,37 @@ namespace Data
             entities = db.Set<T>();
         }
 
-        public void Add(T item)
+        public async Task Add(T item)
         {
             entities.Add(item);
+            await db.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            T entity = entities.Find(id);
+            T entity = await entities.FindAsync(id);
             if (entity != null)
+            {
                 entities.Remove(entity);
+                await db.SaveChangesAsync();
+            } 
         }
 
-        public T Get(int id)
+        public async Task<T> Get(int id)
         {
-            return entities.Find(id);
+            var item = await entities.FindAsync(id);
+            return item;
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
-            return entities;
+            return await entities.ToListAsync();
         }
 
-        public void Update(T item)
+        public async Task Update(T item)
         {
             db.Entry(item).State = EntityState.Modified;
+            await db.SaveChangesAsync();
         }
     }
 }

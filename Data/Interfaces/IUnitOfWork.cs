@@ -10,6 +10,6 @@ namespace Data
     {
         IRepository<Product> ProductRepository { get; }
         IRepository<Order> OrderRepository { get; }
-        void Save();
+        Task Save();
     }
 }

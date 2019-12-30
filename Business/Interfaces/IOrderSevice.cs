@@ -8,12 +8,12 @@ namespace Business
 {
     public interface IOrderService
     {
-        void Add(OrderDTO order);
+        Task Add(OrderDTO order);
 
-        IEnumerable<OrderDTO> GetAll();
+        Task<IEnumerable<OrderDTO>> GetAll();
 
-        OrderDTO Get(int id);
+        Task<OrderDTO> Get(int id);
 
-        void AddProductToOrder(int orderId, ProductDTO product);
+        Task AddProductToOrder(int orderId, ProductDTO product);
     }
 }

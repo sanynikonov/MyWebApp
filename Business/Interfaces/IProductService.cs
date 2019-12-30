@@ -8,8 +8,8 @@ namespace Business
 {
     public interface IProductService
     {
-        IEnumerable<ProductDTO> GetAll();
+        Task<IEnumerable<ProductDTO>> GetAll();
 
-        void Add(ProductDTO product);
+        Task Add(ProductDTO product);
     }
 }

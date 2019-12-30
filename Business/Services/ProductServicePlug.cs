@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class ProductServicePlug : IProductService
+    public class ProductServicePlug
     {
         private List<ProductDTO> products;
 

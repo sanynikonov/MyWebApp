@@ -19,16 +19,16 @@ namespace Business
             this.mapper = mapper;
         }
 
-        public void Add(ProductDTO product)
+        public async Task Add(ProductDTO product)
         {
             var prod = mapper.Map<Product>(product);
-            unit.ProductRepository.Add(prod);
-            unit.Save();
+            await unit.ProductRepository.Add(prod);
+            await unit.Save();
         }
 
-        public IEnumerable<ProductDTO> GetAll()
+        public async Task<IEnumerable<ProductDTO>> GetAll()
         {
-            var products = unit.ProductRepository.GetAll();
+            var products = await unit.ProductRepository.GetAll();
             return products.Select(product => mapper.Map<ProductDTO>(product));
         }
     }

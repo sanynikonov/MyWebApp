@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business
 {
-    public class OrderServicePlug : IOrderService
+    public class OrderServicePlug
     {
         private List<OrderDTO> orders;
 

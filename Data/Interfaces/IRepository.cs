@@ -8,10 +8,10 @@ namespace Data
 {
     public interface IRepository<T> where T : class
     {
-        IEnumerable<T> GetAll();
-        T Get(int id);
-        void Add(T item);
-        void Update(T item);
-        void Delete(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task<T> Get(int id);
+        Task Add(T item);
+        Task Update(T item);
+        Task Delete(int id);
     }
 }

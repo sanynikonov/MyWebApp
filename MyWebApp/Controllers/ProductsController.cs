@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using Business;
 
@@ -18,15 +19,15 @@ namespace MyWebApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ProductDTO> GetAllProducts()
+        public async Task<IEnumerable<ProductDTO>> GetAllProducts()
         {
-            return productService.GetAll();
+            return await productService.GetAll();
         }
 
         [HttpPost]
-        public void PostProduct([FromBody] ProductDTO product)
+        public async Task PostProduct([FromBody] ProductDTO product)
         {
-            productService.Add(product);
+            await productService.Add(product);
         }
     }
 }
